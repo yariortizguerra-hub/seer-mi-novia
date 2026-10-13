@@ -1,0 +1,392 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="robots" content="noindex, nofollow">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>¿Quieres ser mi novia?</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Pacifico&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+}
+
+.animated-gradient {
+    /* MODIFICAR: Colores del fondo degradado animado. */
+    background: linear-gradient(270deg, #ff9a9e, #fad0c4, #fad0c4, #ff9a9e);
+    background-size: 400% 400%;
+    /* MODIFICAR: Velocidad de la animación del fondo (15s = 15 segundos). */
+    animation: gradientAnimation 15s ease infinite;
+}
+@keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.card {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+.btn-yes {
+    transition: all 0.3s ease;
+}
+
+.btn-yes:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+.btn-no {
+    position: absolute;
+    /* MODIFICAR: Velocidad con la que el botón "No" se mueve. */
+    transition: all 0.1s ease-out;
+}
+
+.confetti-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 9999;
+}
+
+.confetti {
+    position: absolute;
+    /* MODIFICAR: Tamaño del confeti. */
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    opacity: 0;
+    animation: fall 3s forwards;
+    border-radius: 50%;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100px) rotateZ(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotateZ(720deg);
+        opacity: 0;
+    }
+}
+
+.typewriter-cursor {
+    display: inline-block;
+    animation: blink-caret 0.75s step-end infinite;
+    color: white;
+}
+
+@keyframes blink-caret {
+    from, to { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+#proposalHeading {
+    min-height: 1.2em;
+    line-height: 1.2;
+}
+
+.sobre {
+    /* MODIFICAR: Color del cuerpo del sobre. */
+    background: #feeef3;
+    width: 300px;
+    height: 180px;
+    position: relative;
+    cursor: pointer;
+}
+
+.triangulo {
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    /* MODIFICAR: Color de la solapa superior del sobre. */
+    border-top: 95px solid #fbbbce;
+    transition: transform .75s;
+    transform-origin: top;
+}
+.abrir {
+    transform: rotatex(180deg);
+}
+.triangulo2 {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+    border-bottom: 95px solid #feeef3;
+}
+.triangulo3 {
+    position: absolute;
+    top: 180px;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 90px solid transparent;
+    border-right: 90px solid transparent;
+    border-top: 143px solid #fcccda;
+    transform: rotate(-90deg);
+    transform-origin: top left;
+}
+.triangulo4 {
+    position: absolute;
+    top: 180px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-left: 90px solid transparent;
+    border-right: 90px solid transparent;
+    border-top: 143px solid #fcccda;
+    transform: rotate(90deg);
+    transform-origin: top right;
+}
+
+.heart {
+    width: 150px;
+    height: 150px;
+    /* MODIFICAR: Color del corazón que sale de la carta. */
+    background-color: #e62e5d;
+    position: absolute;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-45deg);
+    transition: all 0.7s ease-in-out;
+    opacity: 0;
+    z-index: -1;
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    /* MODIFICAR: Color de las partes redondeadas del corazón (debe ser el mismo). */
+    background-color: #e62e5d;
+    border-radius: 50%;
+}
+.heart::before {
+    top: -75px;
+    left: 0;
+}
+.heart::after {
+    top: 0;
+    left: 75px;
+}
+
+.heart-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    /* MODIFICAR: Color del texto dentro del corazón. */
+    color: white;
+    /* MODIFICAR: Tamaño del texto dentro del corazón. */
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    width: 120%;
+    z-index: 1;
+}
+
+.floating-heart {
+    position: fixed;
+    /* MODIFICAR: Color de los corazones que aparecen al hacer clic. */
+    color: #e62e5d;
+    /* MODIFICAR: Tamaño de los corazones que aparecen al hacer clic. */
+    font-size: 24px;
+
+    pointer-events: none;
+
+    transform: translate(-50%, -50%);
+    /* MODIFICAR: Duración de la animación del corazón flotante (2s = 2 segundos). */
+    animation: floatUpAndFade 2s ease-out forwards;
+    z-index: 9998;
+}
+
+@keyframes floatUpAndFade {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -150px) scale(1.5);
+    }
+}</style>
+</head>
+<body class="flex items-center justify-center min-h-screen animated-gradient text-gray-800 p-4">
+
+<div id="proposalCard" class="card rounded-2xl p-8 md:p-12 text-center max-w-md w-full relative">
+  <h1 id="proposalHeading" class="text-4xl md:text-3xl font-pacifico text-white mb-8 drop-shadow-lg">
+    <span id="typedText"></span><span class="typewriter-cursor" aria-hidden="true">_</span>
+  </h1>
+
+  <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+    
+    <button id="yesButton" class="btn-yes bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg flex items-center justify-center transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300">
+      <i class="fas fa-heart mr-2"></i> Sí
+    </button>
+    <button id="noButton" class="btn-no bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300 ease-in-out transform focus:outline-none focus:ring-4 focus:ring-red-300">
+      No
+    </button>
+  </div>
+</div>
+
+<div id="confettiContainer" class="confetti-container"></div>
+
+<div id="letterContainer" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+
+  <button id="closeLetterButton" class="absolute top-4 right-6 text-white text-5xl font-bold hover:text-gray-300">×</button>
+
+  <div class="sobre">
+    <div class="triangulo"></div>
+    <div class="heart">
+      
+      <div class="heart-text">Te quiero mucho ❤</div>
+    </div>
+    <div class="triangulo2"></div>
+    <div class="triangulo3"></div>
+    <div class="triangulo4"></div>
+  </div>
+</div>
+
+<script type="module">
+const yesButton = document.getElementById('yesButton');
+const noButton = document.getElementById('noButton');
+const proposalCard = document.getElementById('proposalCard');
+const confettiContainer = document.getElementById('confettiContainer');
+const typedTextElement = document.getElementById('typedText');
+const letterContainer = document.getElementById('letterContainer');
+const closeLetterButton = document.getElementById('closeLetterButton');
+const sobre = document.querySelector('.sobre');
+const triangulo = document.querySelector('.triangulo');
+const heart = document.querySelector('.heart');
+
+// MODIFICAR: El texto principal que se escribe letra por letra.
+const textToType = "¿Quieres ser mi novia?";
+let currentTextIndex = 0;
+// MODIFICAR: Velocidad de la escritura (en milisegundos). Número más bajo = más rápido.
+const typingDelay = 150;
+
+// MODIFICAR: Los mensajes que aparecen en el botón "No" cada vez que se mueve.
+const noButtonMessages = ["No", "¿En Serio?", "¡Mi corazoncito!", "¡Te daré chocolates!", "¡Última oportunidad!", "¿De verdad de verdad?"];
+let noMessageIndex = 0;
+
+function typewriterEffect() {
+    if (currentTextIndex < textToType.length) {
+        typedTextElement.textContent += textToType.charAt(currentTextIndex);
+        currentTextIndex++;
+        setTimeout(typewriterEffect, typingDelay);
+    }
+}
+
+function moveNoButton() {
+    const cardRect = proposalCard.getBoundingClientRect();
+    const buttonRect = noButton.getBoundingClientRect();
+    const maxX = cardRect.width - buttonRect.width - 20;
+    const maxY = cardRect.height - buttonRect.height - 20;
+
+    noButton.style.left = `${Math.random() * maxX}px`;
+    noButton.style.top = `${Math.random() * maxY}px`;
+
+    noMessageIndex = (noMessageIndex + 1) % noButtonMessages.length;
+    noButton.textContent = noButtonMessages[noMessageIndex];
+}
+
+function createConfetti() {
+    // MODIFICAR: Paleta de colores para el confeti.
+    const colors = ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff', '#ffa500', '#800080'];
+    // MODIFICAR: Cantidad de confeti que cae.
+    for (let i = 0; i < 150; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.left = `${Math.random() * 100}vw`;
+        confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+        // MODIFICAR: Duración de la caída del confeti (base de 2s + hasta 3s adicionales).
+        confetti.style.animationDuration = `${2 + Math.random() * 3}s`;
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.transform = `scale(${0.8 + Math.random() * 1.5})`;
+        confettiContainer.appendChild(confetti);
+
+        confetti.addEventListener('animationend', () => confetti.remove());
+    }
+}
+
+function openLetter() {
+    triangulo.classList.add('abrir');
+    // MODIFICAR: Tiempo de espera (en milisegundos) antes de que el corazón suba.
+    setTimeout(() => {
+        heart.style.top = '-90px';
+        heart.style.opacity = '1';
+        heart.style.zIndex = '10';
+    }, 500);
+}
+
+function closeLetter() {
+    triangulo.classList.remove('abrir');
+    heart.style.top = '75px';
+    heart.style.opacity = '0';
+    heart.style.zIndex = '-1';
+}
+
+yesButton.addEventListener('click', () => {
+    proposalCard.style.display = 'none';
+    createConfetti();
+    letterContainer.classList.remove('hidden');
+    setTimeout(() => {
+        openLetter();
+    }, 100);
+});
+
+noButton.addEventListener('mouseover', moveNoButton);
+noButton.addEventListener('click', moveNoButton);
+
+closeLetterButton.addEventListener('click', () => {
+    letterContainer.classList.add('hidden');
+    proposalCard.style.display = 'block';
+    closeLetter();
+});
+
+window.addEventListener('load', () => {
+    noButton.style.position = 'absolute';
+    const yesRect = yesButton.getBoundingClientRect();
+    const cardRect = proposalCard.getBoundingClientRect();
+    noButton.style.left = `${yesRect.right - cardRect.left + 20}px`;
+    noButton.style.top = `${yesRect.top - cardRect.top}px`;
+    typewriterEffect();
+});
+
+document.addEventListener('click', (event) => {
+    if (event.target.closest('#proposalCard') || event.target.closest('#letterContainer')) {
+        return;
+    }
+    const heart = document.createElement('i');
+    heart.classList.add('fas', 'fa-heart', 'floating-heart');
+    heart.style.left = `${event.clientX}px`;
+    heart.style.top = `${event.clientY}px`;
+    document.body.appendChild(heart);
+    heart.addEventListener('animationend', () => {
+        heart.remove();
+    });
+});</script>
+
+</body>
+</html>
